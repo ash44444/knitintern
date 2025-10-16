@@ -95,6 +95,10 @@ app.get("/health", (_req, res) => {
   res.json({ ok: true })
 })
 
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
+
 // Swagger docs
 app.use("/api-docs", swaggerServe, swaggerSetup)
 
