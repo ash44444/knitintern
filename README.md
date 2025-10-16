@@ -1,4 +1,4 @@
-# 📝 SecureGate
+# 📝 Trustify
 
 > A modern full-stack authentication and product management system with role-based access control, secure API endpoints, and clean architecture.
 
