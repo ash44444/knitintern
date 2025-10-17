@@ -180,7 +180,50 @@ All non-auth routes require `Authorization: Bearer <token>` header.
 - **Secure Cookies**: HTTP-only cookies for sensitive data
 - **Role-Based Access**: Different access levels for users and admins
 - **Token Expiration Handling**: Frontend automatically handles 401 responses
+-
+-
+-
+- Redis Caching in Product APIs
 
+This project uses Redis to improve performance and reduce database load by caching product data for frequent requests. Here's how caching works in this API:
+
+1. List Products (GET /products)
+
+The API first checks if the product list is stored in Redis (products:list key).
+
+Cache hit: Returns cached data immediately with a cached: true flag.
+
+Cache miss: Fetches products from MongoDB, stores the result in Redis for 60 seconds, then returns the response.
+
+Purpose: Reduces repeated database queries for the product list.
+
+2. Get Single Product (GET /products/:id)
+
+Checks Redis for the product using the key product:<id>.
+
+Cache hit: Returns cached product data.
+
+Cache miss: Fetches product from MongoDB, caches it for 5 minutes, then returns the response.
+
+Purpose: Improves response time for frequently accessed products.
+
+3. Create, Update, and Delete Product
+
+After creating, updating, or deleting a product, the API invalidates relevant cache keys:
+
+products:list (the cached product list)
+
+product:<id> (for single product updates or deletions)
+
+Purpose: Ensures cache stays consistent with the database.
+
+4. Benefits
+
+Faster response times for product listings and details.
+
+Reduced load on MongoDB by serving repeated requests from Redis.
+
+Improved scalability for high-traffic scenarios.
 ## 🐛 Troubleshooting
 
 - If frontend cannot reach backend, verify API URL in .env
