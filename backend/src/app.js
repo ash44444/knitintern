@@ -47,7 +47,7 @@ if (!fs.existsSync(logsDir)) {
 app.use(helmet())
 app.use(
   cors({
-    origin:'https://knitintern-bytu.vercel.app/login',
+    origin:'https://knitintern-bytu.vercel.app',
     credentials: false,
   }),
 )
