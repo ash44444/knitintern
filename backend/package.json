@@ -8,8 +8,7 @@
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
     "lint": "echo \"Add ESLint if desired\"",
-    "seed": "node src/scripts/seed.js",
-    "build": "echo 'No build step needed'"
+    "seed": "node src/scripts/seed.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
